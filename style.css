@@ -1,0 +1,38 @@
+body {
+    background: #101010;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.container {
+    margin: 70px auto;
+    max-width: 600px;
+    background: #181818;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px #000;
+}
+
+input, button {
+    margin-top: 15px;
+    padding: 12px;
+    font-size: 15px;
+}
+
+button {
+    background: #2d6cff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1d4ce6;
+}
+
+#status {
+    margin-top: 20px;
+    font-size: 16px;
+}
