@@ -18,6 +18,7 @@ convertBtn.onclick = async () => {
 
         let hasJavaClasses = false;
         let metadata = {};
+        let needsEaglerAPI = false;
 
         await Promise.all(Object.keys(zip.files).map(async path => {
             const entry = zip.files[path];
@@ -33,6 +34,13 @@ convertBtn.onclick = async () => {
                 const raw = await entry.async("string");
                 try {
                     metadata = JSON.parse(raw);
+                    if (metadata.depends) {
+                        for (const dep in metadata.depends) {
+                            if (dep.toLowerCase().includes("fabric")) {
+                                needsEaglerAPI = true;
+                            }
+                        }
+                    }
                 } catch (e) {
                     metadata = {};
                 }
@@ -47,15 +55,24 @@ convertBtn.onclick = async () => {
         const modName = metadata.id || file.name.replace(".jar","");
         const modVersion = metadata.version || "1.0";
 
-        modFolder.file("mod.json", JSON.stringify({
+        // Add EaglerAPI as dependency if needed
+        const convertedModJSON = {
             id: modName,
             name: metadata.name || modName,
             version: modVersion
-        }, null, 2));
+        };
+        if (needsEaglerAPI) {
+            convertedModJSON.requires = ["EaglerAPI"];
+        }
+
+        modFolder.file("mod.json", JSON.stringify(convertedModJSON, null, 2));
 
         let warn = "";
         if (hasJavaClasses) {
             warn = " WARNING: This mod contains Java classes. Some features may not work in WASM.";
+        }
+        if (needsEaglerAPI) {
+            warn += " Note: This mod requires EaglerAPI for Fabric API functionality.";
         }
 
         statusDiv.textContent = `Packaging converted mod: ${modName}...${warn}`;
