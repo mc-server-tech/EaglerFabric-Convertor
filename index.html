@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>EaglerFabric Mod Converter</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>EaglerFabric Advanced Mod Converter</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h1>EaglerFabric Mod Converter</h1>
-    <p>Upload any Fabric/Forge mod (.jar) and convert it into an EaglerFabric 1.12 mod.</p>
+<div class="container">
+    <h1>EaglerFabric Advanced Mod Converter</h1>
+    <p>Upload Fabric or Forge .jar or .zip mods. Converts them into Eagler mod folders with EaglerAPI detection.</p>
 
-    <input type="file" id="modFile" accept=".jar" multiple />
-    <button id="convertBtn">Convert Mods</button>
+    <input type="file" id="modFile" accept=".jar,.zip" multiple>
+    <button id="convertBtn">Convert Selected Mods</button>
 
     <div id="status"></div>
-  </div>
+</div>
 
-  <script src="libs/jszip.min.js"></script>
-  <script src="script.js"></script>
+<script src="jszip.min.js"></script>
+<script src="converter.js"></script>
 </body>
 </html>
